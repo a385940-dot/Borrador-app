@@ -144,7 +144,8 @@ if 'pregunta_actual' not in st.session_state:
 st.markdown("<h1>Guardianes del Agua 💧🌎</h1>", unsafe_allow_html=True)
 st.markdown("### ¡Tu misión es aprender, jugar y salvar nuestro recurso más valioso!")
 
-st.image("https.images.pexels.com/photos/10398642/pexels-photo-10398642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+# <-- CORRECCIÓN: Usando imagen local de la carpeta 'images'
+st.image("images/gota.jpeg",
          caption="¡Cada gota cuenta!", use_column_width=True)
 
 st.divider() # Un separador visual
@@ -154,7 +155,7 @@ if not st.session_state.juego_iniciado:
     st.info("¡Bienvenido/a! Prepara tu mente para una aventura acuática. Conoce hechos asombrosos sobre el agua y pon a prueba tus conocimientos.")
     if st.button("¡Comenzar la Aventura! 🚀", help="Haz clic para iniciar el juego y aprender."):
         st.session_state.juego_iniciado = True
-        st.rerun() # <-- CORRECCIÓN #1 (ANTES ERA st.experimental_rerun())
+        st.rerun()
 else:
 
     # --- 7. Sección de Consejos (con más estilo) ---
@@ -195,7 +196,8 @@ else:
         else:
             st.markdown("¡Buen intento! Cada pregunta es una oportunidad para aprender algo nuevo. ¡Sigue practicando!")
 
-        st.image("https.images.pexels.com/photos/1000673/pexels-photo-1000673.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        # <-- CORRECCIÓN: Usando imagen local de la carpeta 'images'
+        st.image("images/gracias.jpeg",
                  caption="¡Gracias por cuidar el agua!", use_column_width=True)
 
         # Botón para reiniciar el juego
@@ -205,7 +207,7 @@ else:
             st.session_state.puntaje = 0
             st.session_state.respuesta_enviada = False
             st.session_state.opcion_elegida_para_quiz = None
-            st.rerun() # <-- CORRECCIÓN #2 (ANTES ERA st.experimental_rerun())
+            st.rerun()
 
     else:
         # Obtener la pregunta actual
@@ -215,7 +217,7 @@ else:
         st.subheader(f"Pregunta {idx + 1}:")
         st.markdown(f"**❓ {pregunta_data['pregunta']}**")
 
-        # --- CORRECCIÓN DE LA LÍNEA 159 (LA QUE HICIMOS ANTES) ---
+        # Corrección del índice del radio
         default_index = 0
         if st.session_state.opcion_elegida_para_quiz in pregunta_data["opciones"]:
             default_index = pregunta_data["opciones"].index(st.session_state.opcion_elegida_para_quiz)
@@ -228,7 +230,6 @@ else:
             disabled=st.session_state.respuesta_enviada 
         )
         st.session_state.opcion_elegida_para_quiz = opcion_seleccionada
-        # --- FIN DE LA CORRECCIÓN DE LA LÍNEA 159 ---
 
         # --- Lógica de Revisión y Botones ---
         col1, col2 = st.columns(2) # Usamos columnas para los botones
@@ -247,8 +248,7 @@ else:
                 else:
                     st.error(f"Incorrecto. 😟 La respuesta correcta era: **{respuesta_correcta}**")
                 
-                # Importante: Volver a ejecutar para que los cambios visuales se apliquen
-                st.rerun() # <-- CORRECCIÓN #3 (ANTES ERA st.experimental_rerun())
+                st.rerun()
 
         with col2:
             # El botón "Siguiente" solo aparece si ya se envió una respuesta
@@ -258,7 +258,7 @@ else:
                     st.session_state.pregunta_actual += 1
                     st.session_state.respuesta_enviada = False
                     st.session_state.opcion_elegida_para_quiz = None
-                    st.rerun() # <-- CORRECCIÓN #4 (ANTES ERA st.experimental_rerun())
+                    st.rerun()
 
 # --- 9. Pie de Página ---
 st.divider()
