@@ -107,17 +107,17 @@ p {
 PREGUNTAS = [
     {
         "pregunta": "¿Cuánta agua de la Tierra es agua dulce disponible para nosotros?",
-        "opciones": ["50%", "10%", "**Menos del 1%**", "25%"], # Marcamos la correcta para el código
+        "opciones": ["50%", "10%", "Menos del 1%", "25%"],
         "respuesta": "Menos del 1%"
     },
     {
         "pregunta": "¿Cuál de estas acciones ahorra MÁS agua?",
-        "opciones": ["Cerrar la llave al lavarte los dientes", "**Instalar un inodoro de bajo flujo**", "Regar el jardín al mediodía", "Lavar el auto con manguera"],
+        "opciones": ["Cerrar la llave al lavarte los dientes", "Instalar un inodoro de bajo flujo", "Regar el jardín al mediodía", "Lavar el auto con manguera"],
         "respuesta": "Instalar un inodoro de bajo flujo"
     },
     {
         "pregunta": "¿Cuánto tiempo debe durar una ducha para ser considerada 'ahorradora'?",
-        "opciones": ["**5 minutos**", "15 minutos", "20 minutos", "30 minutos"],
+        "opciones": ["5 minutos", "15 minutos", "20 minutos", "30 minutos"],
         "respuesta": "5 minutos"
     },
     {
@@ -133,21 +133,19 @@ PREGUNTAS = [
 ]
 
 # --- 4. Inicialización del Estado (Session State) ---
-# El 'session_state' es la memoria de Streamlit.
-# Nos permite recordar en qué pregunta estamos, cuál es el puntaje, etc.
 if 'pregunta_actual' not in st.session_state:
     st.session_state.pregunta_actual = 0
     st.session_state.puntaje = 0
     st.session_state.respuesta_enviada = False
-    st.session_state.opcion_elegida_para_quiz = None # Almacena la opción del radio para el quiz
+    st.session_state.opcion_elegida_para_quiz = None
     st.session_state.juego_iniciado = False
 
 # --- 5. Título y Encabezado con Diseño ---
 st.markdown("<h1>Guardianes del Agua 💧🌎</h1>", unsafe_allow_html=True)
 st.markdown("### ¡Tu misión es aprender, jugar y salvar nuestro recurso más valioso!")
 
-st.image("https://images.pexels.com/photos/10398642/pexels-photo-10398642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-         caption="¡Cada gota cuenta!", use_column_width=True) # 
+st.image("https.images.pexels.com/photos/10398642/pexels-photo-10398642.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+         caption="¡Cada gota cuenta!", use_column_width=True)
 
 st.divider() # Un separador visual
 
@@ -156,7 +154,7 @@ if not st.session_state.juego_iniciado:
     st.info("¡Bienvenido/a! Prepara tu mente para una aventura acuática. Conoce hechos asombrosos sobre el agua y pon a prueba tus conocimientos.")
     if st.button("¡Comenzar la Aventura! 🚀", help="Haz clic para iniciar el juego y aprender."):
         st.session_state.juego_iniciado = True
-        st.experimental_rerun() # Reinicia la app para mostrar el contenido principal
+        st.rerun() # <-- CORRECCIÓN #1 (ANTES ERA st.experimental_rerun())
 else:
 
     # --- 7. Sección de Consejos (con más estilo) ---
@@ -184,7 +182,6 @@ else:
     progreso = (st.session_state.pregunta_actual) / len(PREGUNTAS)
     st.progress(progreso, text=f"Progreso: {st.session_state.pregunta_actual} de {len(PREGUNTAS)} preguntas")
 
-
     # Verificamos si ya pasamos todas las preguntas
     if st.session_state.pregunta_actual >= len(PREGUNTAS):
         st.success(f"**🎉 ¡Juego Terminado! ¡Felicidades, Guardián/a del Agua! 🎉**")
@@ -198,8 +195,8 @@ else:
         else:
             st.markdown("¡Buen intento! Cada pregunta es una oportunidad para aprender algo nuevo. ¡Sigue practicando!")
 
-        st.image("https://images.pexels.com/photos/1000673/pexels-photo-1000673.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                 caption="¡Gracias por cuidar el agua!", use_column_width=True) # 
+        st.image("https.images.pexels.com/photos/1000673/pexels-photo-1000673.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                 caption="¡Gracias por cuidar el agua!", use_column_width=True)
 
         # Botón para reiniciar el juego
         if st.button("🔄 Jugar de Nuevo", help="Haz clic para reiniciar el quiz."):
@@ -208,7 +205,7 @@ else:
             st.session_state.puntaje = 0
             st.session_state.respuesta_enviada = False
             st.session_state.opcion_elegida_para_quiz = None
-            st.experimental_rerun() # Volvemos a ejecutar el script
+            st.rerun() # <-- CORRECCIÓN #2 (ANTES ERA st.experimental_rerun())
 
     else:
         # Obtener la pregunta actual
@@ -218,20 +215,20 @@ else:
         st.subheader(f"Pregunta {idx + 1}:")
         st.markdown(f"**❓ {pregunta_data['pregunta']}**")
 
-        # El widget radio debe tener una clave única para cada pregunta
-        # La corrección del error: st.radio necesita un valor por defecto o un "index"
-        # Usamos st.session_state.opcion_elegida_para_quiz para mantener la selección
+        # --- CORRECCIÓN DE LA LÍNEA 159 (LA QUE HICIMOS ANTES) ---
+        default_index = 0
+        if st.session_state.opcion_elegida_para_quiz in pregunta_data["opciones"]:
+            default_index = pregunta_data["opciones"].index(st.session_state.opcion_elegida_para_quiz)
+        
         opcion_seleccionada = st.radio(
             "Elige tu respuesta:",
             options=pregunta_data["opciones"],
-            key=f"radio_{idx}", # Clave única para esta pregunta
-            index=pregunta_data["opciones"].index(st.session_state.opcion_elegida_para_quiz)
-                  if st.session_state.opcion_elegida_para_quiz in pregunta_data["opciones"] else 0, # Valor por defecto
-            disabled=st.session_state.respuesta_enviada # Deshabilita las opciones después de enviar
+            key=f"radio_{idx}",
+            index=default_index,
+            disabled=st.session_state.respuesta_enviada 
         )
-        # Almacenamos la opción elegida en el estado para que no se pierda si se rerenderiza la página antes de enviar
         st.session_state.opcion_elegida_para_quiz = opcion_seleccionada
-
+        # --- FIN DE LA CORRECCIÓN DE LA LÍNEA 159 ---
 
         # --- Lógica de Revisión y Botones ---
         col1, col2 = st.columns(2) # Usamos columnas para los botones
@@ -245,12 +242,13 @@ else:
 
                 if opcion_seleccionada == respuesta_correcta:
                     st.success("¡Correcto! Eres un campeón/a del agua. 🎉")
-                    st.balloons() # Pequeña celebración
+                    st.balloons()
                     st.session_state.puntaje += 1
                 else:
                     st.error(f"Incorrecto. 😟 La respuesta correcta era: **{respuesta_correcta}**")
-                # Es importante volver a ejecutar la app para que los cambios visuales se apliquen
-                st.experimental_rerun()
+                
+                # Importante: Volver a ejecutar para que los cambios visuales se apliquen
+                st.rerun() # <-- CORRECCIÓN #3 (ANTES ERA st.experimental_rerun())
 
         with col2:
             # El botón "Siguiente" solo aparece si ya se envió una respuesta
@@ -259,8 +257,8 @@ else:
                              help="Haz clic para pasar a la siguiente pregunta."):
                     st.session_state.pregunta_actual += 1
                     st.session_state.respuesta_enviada = False
-                    st.session_state.opcion_elegida_para_quiz = None # Resetear la opción para la siguiente pregunta
-                    st.experimental_rerun() # Volvemos a ejecutar el script
+                    st.session_state.opcion_elegida_para_quiz = None
+                    st.rerun() # <-- CORRECCIÓN #4 (ANTES ERA st.experimental_rerun())
 
 # --- 9. Pie de Página ---
 st.divider()
