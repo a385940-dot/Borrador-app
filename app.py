@@ -21,7 +21,7 @@ st.write(
 
 # Imagen de portada (opcional, puedes cambiar la URL)
 st.image(
-    "https://www.gob.mx/cms/uploads/article/main_image/81223/PORTADA-BLOG-01-AGUA.jpg",
+    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.es%2Ffotos-vectores-gratis%2Fdibujos-animados-agua&psig=AOvVaw3svrSmSVR_gklTONXyo8bN&ust=1762814084456000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLDd9ayQ5pADFQAAAAAdAAAAABAE",
     caption="El agua es un recurso vital que debemos proteger."
 )
 
