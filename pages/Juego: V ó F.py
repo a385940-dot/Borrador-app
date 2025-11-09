@@ -7,6 +7,13 @@ if 'pregunta_actual_mito' not in st.session_state:
     st.session_state.pregunta_actual_mito = 0
     st.session_state.puntuacion_mito = 0
 
+# --- NUEVO: Estado para bloquear la respuesta ---
+if 'estado_juego_mito' not in st.session_state:
+    st.session_state.estado_juego_mito = "preguntando" # "preguntando" o "respondido"
+
+if 'respuesta_usuario_mito' not in st.session_state:
+    st.session_state.respuesta_usuario_mito = None # "Mito" o "Verdad"
+
 # Lista de afirmaciones
 mitos_y_verdades = [
     {
@@ -35,6 +42,8 @@ mitos_y_verdades = [
 def reiniciar_juego_mito():
     st.session_state.pregunta_actual_mito = 0
     st.session_state.puntuacion_mito = 0
+    st.session_state.estado_juego_mito = "preguntando"
+    st.session_state.respuesta_usuario_mito = None
 
 # --- Lógica del Juego ---
 num_pregunta = st.session_state.pregunta_actual_mito
@@ -44,34 +53,62 @@ if num_pregunta < len(mitos_y_verdades):
     
     st.subheader(item["afirmacion"])
     
-    # Usamos st.columns para poner los botones uno al lado del otro
-    col1, col2 = st.columns(2)
+    # --- LÓGICA DE BOTONES SEPARADA ---
     
-    with col1:
-        if st.button("Es Mito", key=f"m_{num_pregunta}", use_container_width=True):
-            if item["respuesta"] == "Mito":
-                st.success(item["explicacion"])
-                st.session_state.puntuacion_mito += 1
-            else:
-                st.error(f"Incorrecto. {item['explicacion']}")
-            st.session_state.pregunta_actual_mito += 1
-            st.rerun()
+    if st.session_state.estado_juego_mito == "preguntando":
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            if st.button("Es Mito", key=f"m_{num_pregunta}", use_container_width=True):
+                st.session_state.respuesta_usuario_mito = "Mito"
+                st.session_state.estado_juego_mito = "respondido"
+                if item["respuesta"] == "Mito":
+                    st.session_state.puntuacion_mito += 1
+                st.rerun()
 
-    with col2:
-        if st.button("Es Verdad", key=f"v_{num_pregunta}", use_container_width=True):
-            if item["respuesta"] == "Verdad":
-                st.success(item["explicacion"])
-                st.session_state.puntuacion_mito += 1
-            else:
-                st.error(f"Incorrecto. {item['explicacion']}")
+        with col2:
+            if st.button("Es Verdad", key=f"v_{num_pregunta}", use_container_width=True):
+                st.session_state.respuesta_usuario_mito = "Verdad"
+                st.session_state.estado_juego_mito = "respondido"
+                if item["respuesta"] == "Verdad":
+                    st.session_state.puntuacion_mito += 1
+                st.rerun()
+                
+    elif st.session_state.estado_juego_mito == "respondido":
+        # Deshabilitamos los botones (solo visual, ya no se muestran)
+        # y mostramos la retroalimentación
+        
+        if st.session_state.respuesta_usuario_mito == item["respuesta"]:
+            st.success(item["explicacion"])
+        else:
+            st.error(f"Incorrecto. La respuesta era: {item['respuesta']}. {item['explicacion']}")
+        
+        # --- Mostramos el botón para avanzar ---
+        if st.button("Siguiente Afirmación"):
             st.session_state.pregunta_actual_mito += 1
+            st.session_state.estado_juego_mito = "preguntando"
+            st.session_state.respuesta_usuario_mito = None
             st.rerun()
 
 else:
-    # Fin del juego
+    # --- FIN DEL JUEGO ---
     st.header("¡Terminaste el juego de Mitos y Verdades!")
     st.write(f"Tu puntuación fue: {st.session_state.puntuacion_mito} de {len(mitos_y_verdades)}")
     st.balloons()
+
+    st.divider() 
+    st.header("Repaso de Mitos y Verdades")
+    
+    for item in mitos_y_verdades:
+        st.markdown(f"**Afirmación:** {item['afirmacion']}")
+        if item["respuesta"] == "Verdad":
+            st.success("Respuesta: VERDAD")
+        else:
+            st.error("Respuesta: MITO")
+        st.write(item["explicacion"]) 
+        st.caption("---") 
+
+    st.divider()
     
     if st.button("Volver a Jugar"):
         reiniciar_juego_mito()
