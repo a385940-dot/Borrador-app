@@ -1,23 +1,10 @@
 import streamlit as st
 
-# Configuración de la página (título, ícono)
-st.set_page_config(
-    page_title="Guardianes del Agua MX",
-    page_icon="💧"
-)
+st.set_page_config(page_title="Guardianes del Agua",page_icon="💧")
 
-# Título principal
-st.title("Guardianes del agua💧")
+st.title("Guardianes del Agua💧")
 
-# Introducción
-st.write(
-    """
-    ¡Bienvenido a la aplicación sobre el cuidado del agua en México!
-    
-    Navega por las diferentes secciones usando el menú de la izquierda para
-    encontrar estadísticas, consejos prácticos y un juego interactivo.
-    """
-)
+st.write("""¡Bienvenido a la aplicación sobre el cuidado del agua en México! Navega por las diferentes secciones usando el menú de la izquierda para encontrar estadísticas, consejos prácticos y un juego interactivo.""")
 
 # Imagen de portada (opcional, puedes cambiar la URL)
 st.image(
