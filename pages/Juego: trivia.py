@@ -9,6 +9,14 @@ if 'puntuacion_trivia' not in st.session_state:
 if 'pregunta_actual_trivia' not in st.session_state:
     st.session_state.pregunta_actual_trivia = 0
 
+# --- NUEVO: Estado para bloquear la respuesta ---
+if 'estado_juego_trivia' not in st.session_state:
+    st.session_state.estado_juego_trivia = "preguntando" # "preguntando" o "respondido"
+    
+if 'respuesta_usuario_trivia' not in st.session_state:
+    st.session_state.respuesta_usuario_trivia = None
+
+
 # Definimos las preguntas
 preguntas = [
     {
@@ -35,6 +43,8 @@ preguntas = [
 def reiniciar_juego_trivia():
     st.session_state.puntuacion_trivia = 0
     st.session_state.pregunta_actual_trivia = 0
+    st.session_state.estado_juego_trivia = "preguntando"
+    st.session_state.respuesta_usuario_trivia = None
 
 # --- Lógica del Juego ---
 num_pregunta = st.session_state.pregunta_actual_trivia
@@ -45,27 +55,61 @@ if num_pregunta < len(preguntas):
     st.subheader(f"Pregunta {num_pregunta + 1}")
     st.write(item["pregunta"])
     
+    # El radio button se deshabilita si ya se ha respondido
     respuesta = st.radio(
         "Selecciona tu respuesta:",
         item["opciones"],
-        key=f"q_trivia_{num_pregunta}"
+        key=f"q_trivia_{num_pregunta}",
+        disabled=(st.session_state.estado_juego_trivia == "respondido")
     )
     
-    if st.button("Verificar Respuesta", key=f"b_trivia_{num_pregunta}"):
-        if respuesta == item["correcta"]:
+    # --- LÓGICA DE BOTONES SEPARADA ---
+    
+    if st.session_state.estado_juego_trivia == "preguntando":
+        if st.button("Verificar Respuesta", key=f"b_trivia_{num_pregunta}"):
+            # Guardamos la respuesta del usuario
+            st.session_state.respuesta_usuario_trivia = respuesta
+            # Cambiamos el estado a "respondido"
+            st.session_state.estado_juego_trivia = "respondido"
+            
+            # Verificamos y sumamos puntos (solo esta vez)
+            if respuesta == item["correcta"]:
+                st.session_state.puntuacion_trivia += 1
+            
+            # Re-ejecutamos para mostrar el resultado y el botón "Siguiente"
+            st.rerun()
+            
+    elif st.session_state.estado_juego_trivia == "respondido":
+        # --- Mostramos la retroalimentación ---
+        if st.session_state.respuesta_usuario_trivia == item["correcta"]:
             st.success(item["explicacion"])
             st.balloons()
-            st.session_state.puntuacion_trivia += 1
         else:
-            st.error(f"Incorrecto. La respuesta es: {item['correcta']}")
+            st.error(f"Incorrecto. La respuesta correcta es: {item['correcta']}")
         
-        st.session_state.pregunta_actual_trivia += 1
-        st.rerun()
+        # --- Mostramos el botón para avanzar ---
+        if st.button("Siguiente Pregunta"):
+            # Avanzamos a la siguiente pregunta
+            st.session_state.pregunta_actual_trivia += 1
+            # Reiniciamos el estado para la nueva pregunta
+            st.session_state.estado_juego_trivia = "preguntando"
+            st.session_state.respuesta_usuario_trivia = None
+            st.rerun()
 
 else:
+    # --- FIN DEL JUEGO ---
     st.subheader("¡Juego Terminado!")
     st.write(f"Tu puntuación final es: {st.session_state.puntuacion_trivia} de {len(preguntas)}")
     
+    st.divider() 
+    st.header("Repaso de Respuestas Correctas")
+    
+    for i, item in enumerate(preguntas):
+        with st.expander(f"**Pregunta {i+1}:** {item['pregunta']}"):
+            st.success(f"**Respuesta correcta:** {item['correcta']}")
+    
+    st.divider() 
+
     if st.button("Volver a Jugar"):
         reiniciar_juego_trivia()
         st.rerun()
