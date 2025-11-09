@@ -7,7 +7,7 @@ st.set_page_config(
 )
 
 # Título principal
-st.title("Proyecto: Guardianes del Agua en México 💧")
+st.title("Guardianes del agua💧")
 
 # Introducción
 st.write(
