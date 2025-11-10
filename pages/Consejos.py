@@ -15,6 +15,7 @@ with st.expander("Al bañarse"):
         """
     )
     st.image("https://media.tenor.com/_iy7RyO-634AAAAM/bubu-dudu.gif")
+    st.image("https://i.gifer.com/C912.gif")
 
 
 with st.expander("En la Cocina"):
