@@ -60,29 +60,22 @@ if num_pregunta < len(preguntas):
     
     if st.session_state.estado_juego_trivia == "preguntando":
         if st.button("Verificar Respuesta", key=f"b_trivia_{num_pregunta}"):
-            # Guardamos la respuesta del usuario
             st.session_state.respuesta_usuario_trivia = respuesta
-            # Cambiamos el estado a "respondido"
             st.session_state.estado_juego_trivia = "respondido"
             
-            # Verificamos y sumamos puntos (solo esta vez)
             if respuesta == item["correcta"]:
                 st.session_state.puntuacion_trivia += 1
             
-            # Re-ejecutamos para mostrar el resultado y el botón "Siguiente"
             st.rerun()
             
     elif st.session_state.estado_juego_trivia == "respondido":
-        # --- Mostramos la retroalimentación ---
         if st.session_state.respuesta_usuario_trivia == item["correcta"]:
             st.success(item["explicacion"])
             st.balloons()
         else:
             st.error(f"Incorrecto. La respuesta correcta es: {item['correcta']}")
         
-        # --- Mostramos el botón para avanzar ---
         if st.button("Siguiente Pregunta"):
-            # Avanzamos a la siguiente pregunta
             st.session_state.pregunta_actual_trivia += 1
             # Reiniciamos el estado para la nueva pregunta
             st.session_state.estado_juego_trivia = "preguntando"
@@ -90,7 +83,7 @@ if num_pregunta < len(preguntas):
             st.rerun()
 
 else:
-    # --- FIN DEL JUEGO ---
+    #fin del juego
     st.subheader("¡Juego Terminado!")
     st.write(f"Tu puntuación final es: {st.session_state.puntuacion_trivia} de {len(preguntas)}")
     
