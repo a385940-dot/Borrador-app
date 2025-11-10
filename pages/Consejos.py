@@ -1,11 +1,11 @@
 import streamlit as st
 
-st.title("💡 Consejos para Cuidar el Agua")
+st.title(" Consejos para Cuidar el Agua")
 
 st.write("Cada gota cuenta. Aquí tienes acciones prácticas que puedes implementar en tu día a día.")
 
 
-with st.expander("🚿 En la Ducha y Baño"):
+with st.expander("Al bañarse"):
     st.write(
         """
         - **Reduce el tiempo en la ducha:** Intenta bañarte en 5-10 minutos.
