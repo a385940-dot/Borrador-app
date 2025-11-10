@@ -14,7 +14,7 @@ with st.expander("Al bañarse"):
         - **Revisa fugas:** Un goteo en el WC puede gastar miles de litros al mes.
         """
     )
-    st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3h0ZHFtdGo3Z3lqZzZ1ZWVnZ2Zid21iYzcxNTNnbXk5a2ltdXZoeSZlcD1zZl9naWZfYnlfaWQmY3Q9Zw/3o7TKLHb0kpe5rM0uc/giphy.gif")
+    st.image("https://media.tenor.com/_iy7RyO-634AAAAM/bubu-dudu.gif")
 
 
 with st.expander("En la Cocina"):
