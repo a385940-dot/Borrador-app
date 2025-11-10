@@ -17,7 +17,7 @@ with st.expander("Al bañarse"):
     st.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3h0ZHFtdGo3Z3lqZzZ1ZWVnZ2Zid21iYzcxNTNnbXk5a2ltdXZoeSZlcD1zZl9naWZfYnlfaWQmY3Q9Zw/3o7TKLHb0kpe5rM0uc/giphy.gif")
 
 
-with st.expander("🍽️ En la Cocina"):
+with st.expander("En la Cocina"):
     st.write(
         """
         - **Remoja los trastes:** Enjabona todo primero y luego enjuaga rápido. No dejes la llave abierta.
@@ -26,7 +26,7 @@ with st.expander("🍽️ En la Cocina"):
         """
     )
 
-with st.expander("🌱 En el Jardín y Exteriores"):
+with st.expander("Para el cuidado del jardín"):
     st.write(
         """
         - **Riega de noche o muy temprano:** Evitas que el sol evapore el agua.
