@@ -35,5 +35,3 @@ with st.expander("Para el cuidado del jardín"):
         - **Barre, no uses la manguera para mojar la banqueta:** Usa la escoba para limpiar patios y banquetas.
         """
     )
-
-st.caption("Contenedores creados con `st.expander`.")
