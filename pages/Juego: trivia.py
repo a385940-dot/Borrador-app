@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Juego: Trivia del Agua 💧")
+st.title("TriviAgua")
 
 if 'puntuacion_trivia' not in st.session_state:
     st.session_state.puntuacion_trivia = 0
