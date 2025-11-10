@@ -25,7 +25,7 @@ with st.expander("En la Cocina"):
         - **No uses el chorro para descongelar:** Saca la comida con tiempo o usa el microondas.
         """
     )
-
+     st.image("https://i.pinimg.com/originals/28/ed/52/28ed52a553df9f994789b3739b5abf17.gif")
 with st.expander("Para el cuidado del jardín"):
     st.write(
         """
