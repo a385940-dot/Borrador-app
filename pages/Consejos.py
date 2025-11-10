@@ -4,7 +4,6 @@ st.title("💡 Consejos para Cuidar el Agua")
 
 st.write("Cada gota cuenta. Aquí tienes acciones prácticas que puedes implementar en tu día a día.")
 
-# --- Usamos st.expander ---
 
 with st.expander("🚿 En la Ducha y Baño"):
     st.write(
