@@ -13,8 +13,8 @@ st.image("https://img.freepik.com/vector-gratis/dibujado-mano-ilustracion-dibujo
     caption="El agua es un recurso vital que debemos proteger.")
 
 st.sidebar.success("Selecciona una sección arriba.")
-st.sidebar.write("Nombres: Alexa Gabriela Torres")
-st.sidebar.write("Nombre: Estefania Sanchez Aguayo")
+st.sidebar.write("Alexa Gabriela Torres")
+st.sidebar.write(" Estefania Sanchez Aguayo")
 st.sidebar.write(" Sofia Fernanda Lechuga Chavez")
 st.sidebar.write(" Octavio Hiram Juarez Lozoya")
 st.sidebar.write(" Danna Sofia Arredondo Escalera")
