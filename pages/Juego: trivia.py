@@ -2,22 +2,20 @@ import streamlit as st
 
 st.title("Juego: Trivia del Agua 💧")
 
-# --- Usamos st.session_state ---
 if 'puntuacion_trivia' not in st.session_state:
     st.session_state.puntuacion_trivia = 0
     
 if 'pregunta_actual_trivia' not in st.session_state:
     st.session_state.pregunta_actual_trivia = 0
 
-# --- NUEVO: Estado para bloquear la respuesta ---
 if 'estado_juego_trivia' not in st.session_state:
-    st.session_state.estado_juego_trivia = "preguntando" # "preguntando" o "respondido"
+    st.session_state.estado_juego_trivia = "preguntando" 
     
 if 'respuesta_usuario_trivia' not in st.session_state:
     st.session_state.respuesta_usuario_trivia = None
 
 
-# Definimos las preguntas
+# Preguntas
 preguntas = [
     {
         "pregunta": "¿Qué porcentaje del agua del planeta es dulce (no salada)?",
@@ -39,14 +37,12 @@ preguntas = [
     }
 ]
 
-# Función para reiniciar el juego
 def reiniciar_juego_trivia():
     st.session_state.puntuacion_trivia = 0
     st.session_state.pregunta_actual_trivia = 0
     st.session_state.estado_juego_trivia = "preguntando"
     st.session_state.respuesta_usuario_trivia = None
 
-# --- Lógica del Juego ---
 num_pregunta = st.session_state.pregunta_actual_trivia
 
 if num_pregunta < len(preguntas):
@@ -55,15 +51,12 @@ if num_pregunta < len(preguntas):
     st.subheader(f"Pregunta {num_pregunta + 1}")
     st.write(item["pregunta"])
     
-    # El radio button se deshabilita si ya se ha respondido
     respuesta = st.radio(
         "Selecciona tu respuesta:",
         item["opciones"],
         key=f"q_trivia_{num_pregunta}",
         disabled=(st.session_state.estado_juego_trivia == "respondido")
     )
-    
-    # --- LÓGICA DE BOTONES SEPARADA ---
     
     if st.session_state.estado_juego_trivia == "preguntando":
         if st.button("Verificar Respuesta", key=f"b_trivia_{num_pregunta}"):
