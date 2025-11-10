@@ -10,8 +10,8 @@ with st.expander("Al bañarse"):
         """
         - **Reduce el tiempo en la ducha:** Intenta bañarte en 5-10 minutos.
         - **Cierra la llave:** Mientras te enjabonas o te cepillas los dientes.
-        - **Usa una cubeta:** Recolecta el agua fría mientras esperas que salga la caliente y úsala para regar plantas o el WC.
-        - **Revisa fugas:** Un goteo en el WC puede gastar miles de litros al mes.
+        - **Usa una cubeta:** Recolecta el agua fría mientras esperas que salga la caliente y úsala para regar plantas o para el inodoro.
+        - **Revisa fugas:** Un goteo en el inodoro puede gastar miles de litros al mes.
         """
     )
     st.image("https://media.tenor.com/_iy7RyO-634AAAAM/bubu-dudu.gif")
@@ -21,7 +21,7 @@ with st.expander("En la Cocina"):
     st.write(
         """
         - **Remoja los trastes:** Enjabona todo primero y luego enjuaga rápido. No dejes la llave abierta.
-        - **Lavafrutas en un tazón:** No bajo el chorro directo.
+        - **Lava las frutas en un tazón:** No bajo el chorro directo.
         - **No uses el chorro para descongelar:** Saca la comida con tiempo o usa el microondas.
         """
     )
@@ -30,9 +30,9 @@ with st.expander("Para el cuidado del jardín"):
     st.write(
         """
         - **Riega de noche o muy temprano:** Evitas que el sol evapore el agua.
-        - **Usa regadera o goteo:** Evita la manguera.
+        - **Usa regadera:** Evita la manguera.
         - **Lava el coche con cubeta:** Nunca con manguera.
-        - **Barre, no "riego-laves":** Usa la escoba para limpiar patios y banquetas.
+        - **Barre, no uses la manguera para mojar la banqueta:** Usa la escoba para limpiar patios y banquetas.
         """
     )
 
