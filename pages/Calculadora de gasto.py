@@ -55,7 +55,7 @@ gasto_lavadora = (cargas_lavadora * LITROS_POR_LAVADORA) / 7
 
 if st.button("Calcular mi gasto diario💦"):
     
-    total = gasto_ducha + gasto_wc + gasto_manos + gasto_trastes + gasto_lavadora
+    total = gasto_ducha + gasto_inodoro + gasto_manos + gasto_trastes + gasto_lavadora
     st.session_state.total_litros = total
     
     st.metric(
