@@ -9,7 +9,7 @@ st.write("Aquí encontrarás datos y estadísticas relevantes sobre la situació
 st.subheader("Superficie del país afectada por sequía (Marzo 2025)")
 
 chart_data = pd.DataFrame({
-        "Nivel de Sequía": ["Anormalmente seco", "Sequía moderada", "Sequía extrema y excepcional"],
+        "Nivel de sequía": ["Anormalmente seco", "Sequía moderada", "Sequía extrema y excepcional"],
         "Superficie Afectada (%)": [35.2, 42.4, 6.5] })
 chart_data = chart_data.set_index("Nivel de sequía")
 
