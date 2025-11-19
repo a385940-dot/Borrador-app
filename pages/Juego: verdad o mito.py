@@ -96,7 +96,7 @@ else:
     st.divider()
     
     if st.button("Volver a Jugar"):
-        reiniciar_juego_mito()
+        reiniciar_juego_falso()
         st.rerun()
 
 st.sidebar.write(f"Puntuación final: {st.session_state.puntuacion_falso}")
