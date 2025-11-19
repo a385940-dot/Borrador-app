@@ -1,8 +1,8 @@
 import streamlit as st
 
-st.set_page_config(page_title="Guardianes del Agua",page_icon="💧")
+st.set_page_config(page_title="Cuidado del agua",page_icon="💧")
 
-st.title("Cada Gota Cuenta")
+st.title("Cada gota cuenta")
 
 st.write("""¿Cuánto sabes sobre el cuidado del agua?
 Navega por las diferentes secciones que tenemos para ti usando el menú de la izquierda para encontrar estadísticas, consejos prácticos y juegos interactivos.
