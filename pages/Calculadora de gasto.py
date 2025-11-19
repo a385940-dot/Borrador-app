@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Juego: Calcula tu gasto diario 💦")
+st.title("Calcula tu gasto diario 💦")
 
 st.write("Descubre aproximadamente cuánta agua usas en tu día a día")
 
