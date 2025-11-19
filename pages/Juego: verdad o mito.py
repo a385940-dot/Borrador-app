@@ -48,7 +48,7 @@ if num_pregunta < len(verdadero_o_falso):
         col1, col2 = st.columns(2)
         
         with col1:
-            if st.button("Es falso", key=f"m_{num_pregunta}", use_container_width=True):
+            if st.button("Falso", key=f"f_{num_pregunta}", use_container_width=True):
                 st.session_state.respuesta_usuario_falso = "Falso"
                 st.session_state.estado_juego_mito = "respondido"
                 if item["respuesta"] == "Falso":
@@ -56,7 +56,7 @@ if num_pregunta < len(verdadero_o_falso):
                 st.rerun()
 
         with col2:
-            if st.button("Es verdadero", key=f"v_{num_pregunta}", use_container_width=True):
+            if st.button("Verdadero", key=f"v_{num_pregunta}", use_container_width=True):
                 st.session_state.respuesta_usuario_falso = "Verdadero"
                 st.session_state.estado_juego_falso = "respondido"
                 if item["respuesta"] == "Verdadero":
