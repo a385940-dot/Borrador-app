@@ -3,8 +3,8 @@ import streamlit as st
 st.title("Juego: verdadero o falso sobre el agua")
 
 if 'pregunta_actual_falso' not in st.session_state:
-    st.session_state.pregunta_actual_mito = 0
-    st.session_state.puntuacion_mito = 0
+    st.session_state.pregunta_actual_falso = 0
+    st.session_state.puntuacion_falso = 0
 
 if 'estado_juego_falso' not in st.session_state:
     st.session_state.estado_juego_falso = "preguntando"
