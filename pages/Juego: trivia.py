@@ -14,28 +14,19 @@ if 'estado_juego_trivia' not in st.session_state:
 if 'respuesta_usuario_trivia' not in st.session_state:
     st.session_state.respuesta_usuario_trivia = None
 
-
-# Preguntas
-preguntas = [
-    {
-        "pregunta": "¿Qué porcentaje del agua del planeta es dulce (no salada)?",
+preguntas = [{
+        "pregunta": "¿Qué porcentaje del agua del planeta es dulce?",
         "opciones": ["25%", "10%", "2.5%"],
         "correcta": "2.5%",
-        "explicacion": "¡Correcto! Solo el 2.5% es agua dulce, y la mayoría está en glaciares."
-    },
-    {
-        "pregunta": "¿Cuántos litros de agua gasta una ducha de 10 minutos aproximadamente?",
+        "explicacion": "¡Correcto! Solo el 2.5% es agua dulce y la mayoría está en glaciares"},
+    {"pregunta": "¿Cuántos litros de agua gasta una ducha de 10 minutos aproximadamente?",
         "opciones": ["50 litros", "100 litros", "200 litros"],
         "correcta": "200 litros",
-        "explicacion": "¡Correcto! Una regadera común gasta unos 20 litros por minuto."
-    },
-    {
-        "pregunta": "¿Cuál es la principal actividad humana que consume más agua en México?",
+        "explicacion": "¡Correcto! Una regadera común gasta unos 20 litros por minuto."},
+    {"pregunta": "¿Cuál es la principal actividad humana que consume más agua en México?",
         "opciones": ["Industria", "Uso doméstico", "Agricultura"],
         "correcta": "Agricultura",
-        "explicacion": "¡Correcto! La agricultura (riego) usa más del 70% del agua disponible en el país."
-    }
-]
+        "explicacion": "¡Correcto! La agricultura (riego) usa más del 70% del agua disponible en el país."}]
 
 def reiniciar_juego_trivia():
     st.session_state.puntuacion_trivia = 0
@@ -51,12 +42,10 @@ if num_pregunta < len(preguntas):
     st.subheader(f"Pregunta {num_pregunta + 1}")
     st.write(item["pregunta"])
     
-    respuesta = st.radio(
-        "Selecciona tu respuesta:",
+    respuesta = st.radio("Selecciona tu respuesta:",
         item["opciones"],
         key=f"q_trivia_{num_pregunta}",
-        disabled=(st.session_state.estado_juego_trivia == "respondido")
-    )
+        disabled=(st.session_state.estado_juego_trivia == "respondido"))
     
     if st.session_state.estado_juego_trivia == "preguntando":
         if st.button("Verificar Respuesta", key=f"b_trivia_{num_pregunta}"):
@@ -77,18 +66,16 @@ if num_pregunta < len(preguntas):
         
         if st.button("Siguiente Pregunta"):
             st.session_state.pregunta_actual_trivia += 1
-            # Reiniciamos el estado para la nueva pregunta
             st.session_state.estado_juego_trivia = "preguntando"
             st.session_state.respuesta_usuario_trivia = None
             st.rerun()
 
 else:
-    #fin del juego
-    st.subheader("¡Juego Terminado!")
+    st.subheader("¡Juego terminado!")
     st.write(f"Tu puntuación final es: {st.session_state.puntuacion_trivia} de {len(preguntas)}")
     
     st.divider() 
-    st.header("Repaso de Respuestas Correctas")
+    st.header("Repaso de respuestas correctas")
     
     for i, item in enumerate(preguntas):
         with st.expander(f"**Pregunta {i+1}:** {item['pregunta']}"):
@@ -99,5 +86,4 @@ else:
     if st.button("Volver a Jugar"):
         reiniciar_juego_trivia()
         st.rerun()
-
-st.sidebar.write(f"Puntuación Trivia: {st.session_state.puntuacion_trivia}")
+st.sidebar.write(f"Puntuación TriviAgua: {st.session_state.puntuacion_trivia}")
