@@ -12,7 +12,7 @@ if 'estado_juego_falso' not in st.session_state:
 if 'respuesta_usuario_falso' not in st.session_state:
     st.session_state.respuesta_usuario_falso = None 
 
-mitos_y_verdades = [
+verdadero_o_falso = [
     {
         "afirmacion": "verdadero o falso: El agua embotellada es siempre más segura que el agua del grifo.",
         "respuesta": "Falso",
